@@ -1,13 +1,13 @@
+use reqwest;
+use std::collections::HashMap;
 use std::env;
 use std::process;
-
-fn main() {
-    let api_key = match env::var("API_KEY") {
-        Ok(val) => val,
-        Err(err) => {
-            println!("API_KEY: {}", err);
-            process::exit(1);
-        }
-    };
-    //println!("Hello, world={}", api_key);
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let resp = reqwest::get("https://httpbin.org/ip")
+        .await?
+        .json::<HashMap<String, String>>()
+        .await?;
+    println!("{:#?}", resp);
+    Ok(())
 }
