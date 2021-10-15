@@ -12,7 +12,7 @@ struct Info {
     hdurl: String,
     media_type: String,
     service_version: String,
-    copyright: String,
+    copyright: Option<String>,
 }
 
 #[tokio::main]
