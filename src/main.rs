@@ -1,15 +1,8 @@
 use reqwest;
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
 use std::env;
 use std::process;
-//     let resp = reqwest::get("https://httpbin.org/ip")
-//         .await?
-//         .json::<HashMap<String, String>>()
-//         .await?;
-//     println!("{:#?}", resp);
-//     Ok(())
-// }
+
 #[derive(Serialize, Deserialize, Debug)]
 struct Info {
     title: String,
@@ -31,8 +24,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             process::exit(1);
         }
     };
-    //println!("Hello, world={}", api_key);
-    //api_key=DEMO_KEY
     let url = "https://api.nasa.gov/planetary/apod";
     let client = reqwest::Client::new();
     let resp = client
@@ -40,7 +31,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .query(&[("api_key", api_key), ("count", "1".to_string())])
         .send()
         .await?;
-    //let body = reqwest::get().await?.text().await?;
     let b = resp.json::<Vec<Info>>().await?;
     println!("body = {:?}", b);
     Ok(())
