@@ -8,7 +8,7 @@ struct Info {
     title: String,
     explanation: String,
     date: String,
-    url: String,
+    url: Option<String>,
     hdurl: String,
     media_type: String,
     service_version: String,
